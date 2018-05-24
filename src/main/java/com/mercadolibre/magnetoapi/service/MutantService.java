@@ -8,13 +8,12 @@ import com.mercadolibre.magnetoapi.models.Human;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
 public class MutantService implements IMutantService {
 
-    private static final String REGEX = "^(A|T|G|C){6}$";
+    private static final String DNA_REGEX = "^(A|T|G|C){6}$";
 
     @Autowired
     private MutantDao mutantFacade;
@@ -22,15 +21,7 @@ public class MutantService implements IMutantService {
     @Override
     public boolean isMutant(IsMutantRequest input){
         String[] dna = input.getDna();
-        String line = dna[0];
-        Pattern pattern = Pattern.compile(REGEX);
-
-        // Now create matcher object.
-        Matcher matcher = pattern.matcher(line);
-        if (!matcher.find()){
-            throw new RuntimeException("Dna sequences must contain only A, T, G or C characters.");
-
-        }
+        validateDnaGene(dna);
 
         boolean response = MutantHelper.checkDna(dna);
         Human humanScanned = new Human();
@@ -41,11 +32,23 @@ public class MutantService implements IMutantService {
         return response;
     }
 
+    private void validateDnaGene(String[] dna) {
+        Pattern pattern = Pattern.compile(DNA_REGEX);
+        for (int i=0; i<6; i++){
+            String line = dna[i];
+
+            if (!pattern.matcher(line).find()){
+                throw new IllegalArgumentException("Dna sequences must contain only A, T, G or C characters.");
+
+            }
+        }
+    }
+
     @Override
     public GetStatsResponse getStats() {
         GetStatsResponse response = new GetStatsResponse();
         response.setCount_human_dna(mutantFacade.findAll().size());
-        response.setCount_mutant_dna(mutantFacade.fetchHumans(false).size());
+        response.setCount_mutant_dna(mutantFacade.fetchHumans(true).size());
         response.setRatio(response.getCount_mutant_dna() == 0 ?
                 1.0f : (float) response.getCount_mutant_dna() / response.getCount_human_dna());
         return response;

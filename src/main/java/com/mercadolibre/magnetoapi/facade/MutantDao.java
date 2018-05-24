@@ -7,6 +7,9 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
+/**
+ * Data Access Object for scanned humans.
+ */
 public interface MutantDao extends CrudRepository<Human, Long> {
 
     List<Human> findAll();

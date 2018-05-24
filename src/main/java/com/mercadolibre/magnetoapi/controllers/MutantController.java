@@ -2,6 +2,7 @@ package com.mercadolibre.magnetoapi.controllers;
 
 import com.mercadolibre.magnetoapi.controllers.dtos.GetStatsResponse;
 import com.mercadolibre.magnetoapi.controllers.dtos.IsMutantRequest;
+import com.mercadolibre.magnetoapi.controllers.dtos.IsMutantResponse;
 import com.mercadolibre.magnetoapi.service.MutantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -11,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+
 
 @RestController
 public class MutantController {
@@ -18,18 +22,33 @@ public class MutantController {
     @Autowired
     private MutantService mutantService;
 
+    /**
+     * Checks if it's a dna mutant or not.
+     * @param input dna
+     * @return OK if it's mutant, FORBIDDEN if it's not.
+     */
     @PostMapping("/mutant")
     @ResponseBody
-    public ResponseEntity<String> isMutant(@Valid @RequestBody IsMutantRequest input){
+    public ResponseEntity<IsMutantResponse> isMutant(@Valid @RequestBody IsMutantRequest input){
 
         HttpHeaders responseHeaders = new HttpHeaders();
-        if(mutantService.isMutant(input)){
-            return new ResponseEntity<>(null, responseHeaders, HttpStatus.OK);
+        IsMutantResponse response = new IsMutantResponse();
+
+        response.setMutant(mutantService.isMutant(input));
+
+        response.add(linkTo(methodOn(MutantController.class).isMutant(input)).withSelfRel());
+        response.add(linkTo(methodOn(MutantController.class).getStats()).withRel("stats"));
+        if(response.isMutant()){
+            return new ResponseEntity<>(response, responseHeaders, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(null, responseHeaders, HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(response, responseHeaders, HttpStatus.FORBIDDEN);
         }
     }
 
+    /**
+     * Return statistics about mutants scanned.
+     * @return stats.
+     */
     @GetMapping("/stats")
     @ResponseBody
     public GetStatsResponse getStats(){
