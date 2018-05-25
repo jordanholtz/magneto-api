@@ -1,6 +1,6 @@
-package com.mercadolibre.magnetoapi.controllers;
+package com.mercadolibre.magnetoapi.controller;
 
-import com.mercadolibre.magnetoapi.controllers.dtos.IsMutantResponse;
+import com.mercadolibre.magnetoapi.controller.dtos.IsMutantResponse;
 import com.mercadolibre.magnetoapi.service.MutantService;
 import org.junit.Assert;
 import org.junit.Test;

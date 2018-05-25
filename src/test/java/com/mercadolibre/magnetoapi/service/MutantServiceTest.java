@@ -1,9 +1,9 @@
 package com.mercadolibre.magnetoapi.service;
 
-import com.mercadolibre.magnetoapi.controllers.dtos.GetStatsResponse;
-import com.mercadolibre.magnetoapi.controllers.dtos.IsMutantRequest;
-import com.mercadolibre.magnetoapi.facade.MutantDao;
-import com.mercadolibre.magnetoapi.models.Human;
+import com.mercadolibre.magnetoapi.controller.dtos.GetStatsResponse;
+import com.mercadolibre.magnetoapi.controller.dtos.IsMutantRequest;
+import com.mercadolibre.magnetoapi.model.Human;
+import com.mercadolibre.magnetoapi.repository.MutantDao;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

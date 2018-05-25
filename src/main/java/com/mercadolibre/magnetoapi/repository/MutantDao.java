@@ -1,6 +1,6 @@
-package com.mercadolibre.magnetoapi.facade;
+package com.mercadolibre.magnetoapi.repository;
 
-import com.mercadolibre.magnetoapi.models.Human;
+import com.mercadolibre.magnetoapi.model.Human;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;

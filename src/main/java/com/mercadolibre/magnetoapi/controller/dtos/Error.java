@@ -1,4 +1,4 @@
-package com.mercadolibre.magnetoapi.models;
+package com.mercadolibre.magnetoapi.controller.dtos;
 
 public class Error {
 

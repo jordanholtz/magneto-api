@@ -1,4 +1,4 @@
-package com.mercadolibre.magnetoapi.helpers;
+package com.mercadolibre.magnetoapi.helper;
 
 import org.junit.Assert;
 import org.junit.Test;

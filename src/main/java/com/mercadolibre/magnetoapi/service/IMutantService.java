@@ -1,7 +1,7 @@
 package com.mercadolibre.magnetoapi.service;
 
-import com.mercadolibre.magnetoapi.controllers.dtos.GetStatsResponse;
-import com.mercadolibre.magnetoapi.controllers.dtos.IsMutantRequest;
+import com.mercadolibre.magnetoapi.controller.dtos.GetStatsResponse;
+import com.mercadolibre.magnetoapi.controller.dtos.IsMutantRequest;
 
 /**
  * Interface for mutant operations.

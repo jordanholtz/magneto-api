@@ -1,4 +1,4 @@
-package com.mercadolibre.magnetoapi.controllers.dtos;
+package com.mercadolibre.magnetoapi.controller.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.hateoas.ResourceSupport;

@@ -1,6 +1,6 @@
 package com.mercadolibre.magnetoapi;
 
-import com.mercadolibre.magnetoapi.models.Error;
+import com.mercadolibre.magnetoapi.controller.dtos.Error;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

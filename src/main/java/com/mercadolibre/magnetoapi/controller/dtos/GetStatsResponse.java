@@ -1,4 +1,4 @@
-package com.mercadolibre.magnetoapi.controllers.dtos;
+package com.mercadolibre.magnetoapi.controller.dtos;
 
 public class GetStatsResponse {
 

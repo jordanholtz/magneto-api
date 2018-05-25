@@ -1,8 +1,8 @@
-package com.mercadolibre.magnetoapi.controllers;
+package com.mercadolibre.magnetoapi.controller;
 
-import com.mercadolibre.magnetoapi.controllers.dtos.GetStatsResponse;
-import com.mercadolibre.magnetoapi.controllers.dtos.IsMutantRequest;
-import com.mercadolibre.magnetoapi.controllers.dtos.IsMutantResponse;
+import com.mercadolibre.magnetoapi.controller.dtos.GetStatsResponse;
+import com.mercadolibre.magnetoapi.controller.dtos.IsMutantRequest;
+import com.mercadolibre.magnetoapi.controller.dtos.IsMutantResponse;
 import com.mercadolibre.magnetoapi.service.MutantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;

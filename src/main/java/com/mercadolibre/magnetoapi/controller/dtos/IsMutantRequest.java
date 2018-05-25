@@ -1,4 +1,4 @@
-package com.mercadolibre.magnetoapi.controllers.dtos;
+package com.mercadolibre.magnetoapi.controller.dtos;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
