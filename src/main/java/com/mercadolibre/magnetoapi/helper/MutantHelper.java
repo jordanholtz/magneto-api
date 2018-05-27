@@ -8,7 +8,7 @@ public class MutantHelper {
     /**
      * Check if a Dna has a mutant gene.
      * @param dnaSecuence Dna secuence.
-     * @return
+     * @return has mutant gene.
      */
     public static boolean checkDna(String[] dnaSecuence) {
         char[][] dnaMatrix = createDnaMatrix(dnaSecuence);
@@ -16,9 +16,7 @@ public class MutantHelper {
         boolean res = false;
         for (int i = 0; i < 6 && !res; i++) {
             for (int j = 0; j < 6 && !res; j++) {
-                res = checkVerticalMatch(i, j, dnaMatrix) ||
-                        checkHorizontalMatch(i, j, dnaMatrix) ||
-                        checkDiagonalMatch(i, j, dnaMatrix);
+                res = checkAll(i,j,dnaMatrix);
             }
         }
         return res;
@@ -44,60 +42,56 @@ public class MutantHelper {
             throw new IllegalArgumentException("Invalid dna length. Must be 6.");
         }
 
-        for (int i = 0; i < 6; i++) {
-            dnaMatrix[index][i] = dnaArray[i];
-        }
+        System.arraycopy(dnaArray, 0, dnaMatrix[index], 0, 6);
     }
 
-    private static boolean checkDiagonalMatch(int x, int y, char[][] dnaMatrix) throws RuntimeException {
+    private static boolean checkAll(int x, int y, char[][] dnaMatrix) {
         if (x > 5 || y > 5) {
             throw new IllegalArgumentException("Invalid dna length. Must be 6.");
         }
+        Boolean[] response = new Boolean[3];
+        response[0] = Boolean.TRUE;
+        response[1] = Boolean.TRUE;
+        response[2] = Boolean.TRUE;
 
-        if (x + 3 < 6 && y + 3 < 6) {
-            char dnaChar = dnaMatrix[x][y];
-            for (int i = 1; i <= 3; i++) {
-                if (dnaMatrix[x + i][y + i] != dnaChar) {
-                    return false;
-                }
+        for (int i = 1; i <= 3 && !(response[0]==false && response[1]==false && response[2]==false); i++) {
+            if (response[0]){
+                response[0] = checkVertical(x,y,i,dnaMatrix);
             }
-            return true;
-        }
-        return false;
-    }
-
-    private static boolean checkHorizontalMatch(int x, int y, char[][] dnaMatrix) throws RuntimeException {
-        if (x > 5 || y > 5) {
-            throw new IllegalArgumentException("Invalid dna length. Must be 6.");
-        }
-
-        if (y + 3 < 6) {
-            char dnaChar = dnaMatrix[x][y];
-            for (int i = y + 1; i <= y + 3; i++) {
-                if (dnaMatrix[x][i] != dnaChar) {
-                    return false;
-                }
+            if (response[1]){
+                response[1] = checkDiagonal(x,y,i,dnaMatrix);
             }
-            return true;
+            if (response[2]){
+                response[2] = checkHorizontal(x,y,i,dnaMatrix);
+            }
         }
-        return false;
+        return response[0] || response[1] || response[2];
     }
 
-    private static boolean checkVerticalMatch(int x, int y, char[][] dnaMatrix) throws RuntimeException {
-        if (x > 5 || y > 5) {
-            throw new IllegalArgumentException("Invalid dna length. Must be 6.");
-        }
+    private static boolean checkVertical(int x, int y, int i,  char[][] dnaMatrix) throws RuntimeException {
 
         if (x + 3 < 6) {
             char dnaChar = dnaMatrix[x][y];
-            for (int i = x + 1; i <= x + 3; i++) {
-                if (dnaMatrix[i][y] != dnaChar) {
-                    return false;
-                }
-            }
-            return true;
+            return dnaMatrix[x + i][y] == dnaChar;
         }
         return false;
     }
 
+    private static boolean checkDiagonal(int x, int y, int i,  char[][] dnaMatrix) {
+
+        if (x + 3 < 6 && y + 3 < 6) {
+            char dnaChar = dnaMatrix[x][y];
+            return dnaMatrix[x + i][y + i] == dnaChar;
+        }
+        return false;
+    }
+
+    private static boolean checkHorizontal(int x, int y, int i,  char[][] dnaMatrix) {
+
+        if (y + 3 < 6) {
+            char dnaChar = dnaMatrix[x][y];
+            return dnaMatrix[x][y + i] == dnaChar;
+        }
+        return false;
+    }
 }
