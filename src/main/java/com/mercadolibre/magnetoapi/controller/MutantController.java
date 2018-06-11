@@ -3,7 +3,7 @@ package com.mercadolibre.magnetoapi.controller;
 import com.mercadolibre.magnetoapi.controller.dtos.GetStatsResponse;
 import com.mercadolibre.magnetoapi.controller.dtos.IsMutantRequest;
 import com.mercadolibre.magnetoapi.controller.dtos.IsMutantResponse;
-import com.mercadolibre.magnetoapi.service.MutantService;
+import com.mercadolibre.magnetoapi.service.IMutantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,7 +20,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 public class MutantController {
 
     @Autowired
-    private MutantService mutantService;
+    private IMutantService mutantService;
 
     /**
      * Checks if it's a dna mutant or not.
